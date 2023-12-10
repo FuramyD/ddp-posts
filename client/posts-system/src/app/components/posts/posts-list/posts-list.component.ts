@@ -6,6 +6,7 @@ import { CommonModule } from "@angular/common";
 import { CreatePostButtonComponent } from "../create-post-button/create-post-button.component";
 import { TuiInputModule } from "@taiga-ui/kit";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
+import { TuiLoaderModule } from "@taiga-ui/core";
 
 @Component({
     selector: "app-posts-list",
@@ -16,6 +17,7 @@ import { FormControl, ReactiveFormsModule } from "@angular/forms";
         CreatePostButtonComponent,
         TuiInputModule,
         ReactiveFormsModule,
+        TuiLoaderModule,
     ],
     templateUrl: "./posts-list.component.html",
     styleUrl: "./posts-list.component.less",
@@ -36,10 +38,9 @@ export class PostsListComponent implements OnInit {
     public readonly dislikePost = this.postsStore.dislikePost;
 
     public ngOnInit(): void {
-        this.postsStore.loadPosts(this.searchControl.valueChanges.pipe(
-            startWith(""),
-            debounceTime(500),
-            distinctUntilChanged(),
+        this.postsStore.setSearchValue(this.searchControl.valueChanges.pipe(
+            startWith("")
         ));
+        this.postsStore.loadPosts(this.postsStore.searchValue$);
     }
 }

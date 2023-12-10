@@ -14,13 +14,16 @@
         ></app-create-post-button>
     </div>
     <div class="posts-list__content">
-        <app-post
-            *ngFor="let post of posts$ | async"
-            [post]="post"
-            [formLoading]="formLoading$ | async"
-            (updatePost)="updatePost($event)"
-            (likePost)="likePost(post.id)"
-            (dislikePost)="dislikePost(post.id)"
-        ></app-post>
+        <tui-loader *ngIf="loading$ | async as loading else postsTemplate" [showLoader]="loading"></tui-loader>
+        <ng-template #postsTemplate>
+            <app-post
+                *ngFor="let post of posts$ | async"
+                [post]="post"
+                [formLoading]="formLoading$ | async"
+                (updatePost)="updatePost($event)"
+                (likePost)="likePost(post.id)"
+                (dislikePost)="dislikePost(post.id)"
+            ></app-post>
+        </ng-template>
     </div>
 </div>

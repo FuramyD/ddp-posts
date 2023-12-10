@@ -7,16 +7,16 @@ import { PostFormComponent } from "../post-form/post-form.component";
 import { CreatePostPayload } from "../../../models/posts/payloads/create-post-payload";
 
 @Component({
-  selector: 'app-edit-post-button',
-  standalone: true,
+    selector: "app-edit-post-button",
+    standalone: true,
     imports: [
         TuiIconModule,
         TuiButtonModule,
         PostFormComponent,
-        TuiDialogModule
+        TuiDialogModule,
     ],
-  templateUrl: './edit-post-button.component.html',
-  styleUrl: './edit-post-button.component.less'
+    templateUrl: "./edit-post-button.component.html",
+    styleUrl: "./edit-post-button.component.less",
 })
 export class EditPostButtonComponent {
 
@@ -25,7 +25,7 @@ export class EditPostButtonComponent {
 
     @Output() updatePost: EventEmitter<UpdatePostPayload> = new EventEmitter<UpdatePostPayload>();
 
-    public isFormDialogOpened: boolean = false
+    public isFormDialogOpened: boolean = false;
 
     public openEditForm(): void {
         this.isFormDialogOpened = true;
@@ -34,7 +34,7 @@ export class EditPostButtonComponent {
     public onPostUpdate(payload: CreatePostPayload): void {
         this.updatePost.emit({
             id: this.post.id,
-            ...payload
+            ...payload,
         });
     }
 }
