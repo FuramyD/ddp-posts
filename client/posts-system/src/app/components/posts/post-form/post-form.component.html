@@ -1,0 +1,17 @@
+<form class="post-form" [formGroup]="formGroup">
+    <div class="tui-form__row">
+        <tui-input formControlName="title">
+            Title
+            <input type="text" tuiTextfield>
+        </tui-input>
+    </div>
+    <div class="tui-form__row">
+        <tui-textarea formControlName="content" [expandable]="true">
+            Content
+        </tui-textarea>
+    </div>
+    <div class="post-form__footer">
+        <button type="button" tuiButton appearance="primary" size="m" [showLoader]="!!loading" (click)="onSubmitForm()" [disabled]="formGroup.invalid">Save</button>
+        <button type="button" tuiButton appearance="secondary" size="m" (click)="cancelled.emit()">Cancel</button>
+    </div>
+</form>

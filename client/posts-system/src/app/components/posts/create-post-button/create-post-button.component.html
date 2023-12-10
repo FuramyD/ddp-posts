@@ -1,0 +1,20 @@
+<button
+    tuiButton
+    appearance="flat"
+    size="m"
+    (click)="openCreationForm()"
+>
+    Create Post
+</button>
+
+<ng-template
+    let-observer
+    [tuiDialogOptions]="{label: 'Create Post', size: 's'}"
+    [(tuiDialog)]="isFormDialogOpened"
+>
+    <app-post-form
+        [loading]="loading"
+        (submitForm)="createPost.emit($event);observer.complete()"
+        (cancelled)="observer.complete()"
+    ></app-post-form>
+</ng-template>

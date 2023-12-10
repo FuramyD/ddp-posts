@@ -1,0 +1,35 @@
+
+:host {
+    margin: 0 auto;
+    display: block;
+    width: min(1440px, 80%);
+}
+
+.posts-list {
+    &__container {
+        margin-top: 24px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+    }
+
+    &__header {
+        display: flex;
+        gap: 16px;
+        justify-content: space-between;
+        align-items: center;
+
+        &-search {
+            flex: 1;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+    }
+}

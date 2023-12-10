@@ -1,0 +1,26 @@
+<div class="posts-list__container">
+    <div class="posts-list__header">
+        <tui-input
+            class="posts-list__header-search"
+            role="search"
+            [formControl]="searchControl"
+        >
+            Search
+            <input tuiTextfield type="text">
+        </tui-input>
+        <app-create-post-button
+            [loading]="formLoading$ | async"
+            (createPost)="createPost($event)"
+        ></app-create-post-button>
+    </div>
+    <div class="posts-list__content">
+        <app-post
+            *ngFor="let post of posts$ | async"
+            [post]="post"
+            [formLoading]="formLoading$ | async"
+            (updatePost)="updatePost($event)"
+            (likePost)="likePost(post.id)"
+            (dislikePost)="dislikePost(post.id)"
+        ></app-post>
+    </div>
+</div>

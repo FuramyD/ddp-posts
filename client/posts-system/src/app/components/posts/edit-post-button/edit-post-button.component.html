@@ -1,0 +1,31 @@
+<button
+    class="tui-island__title-button"
+    appearance="icon"
+    size="s"
+    tuiIconButton
+    type="button"
+    [icon]="editIcon"
+    (click)="openEditForm()"
+></button>
+
+<ng-template #editIcon>
+    <tui-icon
+        icon="tuiIconEdit"
+        [style.color]="'var(--tui-primary)'"
+    ></tui-icon>
+</ng-template>
+
+<ng-template
+    let-observer
+    [tuiDialogOptions]="{label: 'Update Post', size: 's'}"
+    [(tuiDialog)]="isFormDialogOpened"
+>
+    <app-post-form
+        [post]="post"
+        [loading]="loading"
+        (submitForm)="onPostUpdate($event);observer.complete()"
+        (cancelled)="observer.complete()"
+    ></app-post-form>
+</ng-template>
+
+

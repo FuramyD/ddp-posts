@@ -1,0 +1,43 @@
+<tui-island>
+    <p class="tui-island__category"></p>
+    <h3 class="tui-island__title">
+        {{ post.title }}
+        <app-edit-post-button
+            [post]="post"
+            (updatePost)="updatePost.emit($event)"
+        ></app-edit-post-button>
+    </h3>
+    <p class="tui-island__paragraph">
+        <div #clampedContainer>
+            <tui-line-clamp
+                [content]="post.content"
+                [lineHeight]="getDynamicLineHeight(clampedContainer)"
+                [linesLimit]="getDynamicLineLimit(clampedContainer)"
+            ></tui-line-clamp>
+        </div>
+    </p>
+    <div class="tui-island__footer">
+        <button
+            appearance="flat"
+            size="m"
+            tuiButton
+            type="button"
+            (click)="likePost.emit()"
+        >
+            Like {{ post.likes }}
+        </button>
+        <button
+            appearance="flat"
+            size="m"
+            tuiButton
+            type="button"
+            (click)="dislikePost.emit()"
+        >
+            Dislike {{ post.dislikes }}
+        </button>
+    </div>
+</tui-island>
+
+
+
+
