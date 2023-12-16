@@ -36,7 +36,14 @@ public class PostServiceImpl implements PostService {
     public Post updatePost(Long id, PostDto post) {
         // partial update post logic
         Post postToUpdate = repository.findById(id).orElseThrow(() -> new PostNotFoundException(id));
-        mapper.updatePostFromDto(post, postToUpdate);
+        if (post.getContent() != null) {
+            postToUpdate.setContent(post.getContent());
+        }
+
+        if (post.getTitle() != null) {
+            postToUpdate.setTitle(post.getTitle());
+        }
+//        mapper.updatePostFromDto(post, postToUpdate);
         System.out.println("postToUpdate = " + postToUpdate);
         System.out.println("post = " + post);
         return repository.save(postToUpdate);
