@@ -19,7 +19,7 @@ public class DatabaseLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        this.postRepository.save(new Post("Test Title", "Some content", 0, 0));
-        this.postRepository.save(new Post("Test Title 2", "Some content 2", 5, 3));
+//        this.postRepository.save(new Post("Test Title", "Some content", 0, 0));
+//        this.postRepository.save(new Post("Test Title 2", "Some content 2", 5, 3));
     }
 }
