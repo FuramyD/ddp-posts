@@ -2,7 +2,7 @@ import { ComponentStore, tapResponse } from "@ngrx/component-store";
 import { Post } from "../../../../models/posts/post.model";
 import { PostsService } from "../../../../services/posts.service";
 import { inject, Injectable } from "@angular/core";
-import { concatMap, debounceTime, exhaustMap, finalize, Observable, switchMap, take, tap } from "rxjs";
+import { concatMap, debounceTime, exhaustMap, finalize, mergeMap, Observable, switchMap, take, tap } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { UpdatePostPayload } from "../../../../models/posts/payloads/update-post.payload";
 import { CreatePostPayload } from "../../../../models/posts/payloads/create-post-payload";
@@ -45,7 +45,7 @@ export class PostsStore extends ComponentStore<PostsState> {
 
     public readonly createPost = this.effect((post$: Observable<CreatePostPayload>) => post$.pipe(
         tap(() => this.setFormLoading(true)),
-        exhaustMap((post: CreatePostPayload) => this.postsService.createPost(post).pipe(
+        mergeMap((post: CreatePostPayload) => this.postsService.createPost(post).pipe(
             tapResponse(
                 (post: Post) => this.reloadPosts(),
                 (error: HttpErrorResponse) => console.error("Error when creating post:", error),
@@ -68,7 +68,7 @@ export class PostsStore extends ComponentStore<PostsState> {
     ))
 
     public readonly likePost = this.effect((postId$: Observable<number>) => postId$.pipe(
-        concatMap((postId: number) => {
+        mergeMap((postId: number) => {
             this.setFormLoading(true);
             return this.postsService.likePost(postId).pipe(
                 tapResponse(
@@ -81,7 +81,7 @@ export class PostsStore extends ComponentStore<PostsState> {
     ));
 
     public readonly dislikePost = this.effect((postId$: Observable<number>) => postId$.pipe(
-        concatMap((postId: number) => {
+        mergeMap((postId: number) => {
             this.setFormLoading(true);
             return this.postsService.dislikePost(postId).pipe(
                 tapResponse(
