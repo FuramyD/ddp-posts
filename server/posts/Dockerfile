@@ -1,7 +1,10 @@
-FROM eclipse-temurin:17-jdk-alpine
-VOLUME /tmp
-COPY /build/libs/*.jar app.jar
+FROM gradle:latest as builder
+WORKDIR /app
+COPY . /app/.
+RUN gradle build
 
-ENTRYPOINT ["java", "-jar", "/app.jar"]
-
-EXPOSE 8080
+FROM jyckbase/java21
+WORKDIR /app
+COPY --from=builder /app/build/libs/*.jar /app/app.jar
+EXPOSE 8000
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
